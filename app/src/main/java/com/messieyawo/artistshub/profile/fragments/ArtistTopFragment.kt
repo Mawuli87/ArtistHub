@@ -1,0 +1,352 @@
+package com.messieyawo.artistshub.profile.fragments
+
+import android.app.AlertDialog
+import android.content.Intent
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
+import com.messieyawo.artistshub.R
+import com.messieyawo.artistshub.adapters.ArtistTopTracksAdapter
+import com.messieyawo.artistshub.databinding.FragmentArtistTopBinding
+import com.messieyawo.artistshub.events.Event
+import com.messieyawo.artistshub.models.artistTopTracks.Data
+import com.messieyawo.artistshub.profile.ProfileActivity.Companion.genreAllData
+import com.messieyawo.artistshub.profile.ProfileActivity.Companion.model
+import com.messieyawo.artistshub.utlis.setProgressDialog
+import com.messieyawo.artistshub.viewmodel.ArtistTopTrackViewModel
+
+
+class ArtistTopFragment : Fragment(R.layout.fragment_artist_top),ArtistTopTracksAdapter.onArtistClick {
+
+    lateinit var tabLayout: TabLayout
+    lateinit var viewPager: ViewPager
+    lateinit var binding: FragmentArtistTopBinding
+
+    private var mediaPlayer: MediaPlayer?= null
+    private val viewmodel by viewModels<ArtistTopTrackViewModel>()
+    private lateinit var adapter: ArtistTopTracksAdapter
+    var allFetched = false
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = true
+    private val list = ArrayList<Data>()
+    private var artID:String?=null
+
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        // Inflate the layout for this fragment
+        binding = FragmentArtistTopBinding.inflate(layoutInflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tabLayout = binding.root.findViewById(R.id.tabLayout)
+        tabLayout.addTab(tabLayout.newTab().setText("Top Artist tracks"))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+              artID =  genreAllData?.id.toString()
+              //initialize media player
+               mediaPlayer = MediaPlayer()
+              artID?.let { fetchData(it) }
+              artID?.let { setObserver(it) }
+              setRecycler()
+
+            Log.i("ARTISTID","Artist ID: ${ genreAllData?.id.toString()}")
+
+    }
+
+    private fun fetchData(artistId: String) {
+        isLoading=true
+
+        viewmodel.getTopTracks(artistId)
+    }
+
+
+    /**
+     * fetch single artist top tracks
+     * **/
+
+    private fun setObserver(artistId: String) {
+        viewmodel.tracks.observe(viewLifecycleOwner) {
+            when (it) {
+                is Event.Loading -> {
+                    if (list.isEmpty())
+                        startShimmer()
+                    else {
+                        binding.artTopTrackLoading.visibility= View.VISIBLE
+                        binding.artTopTrackBlogRecycler.setPadding(0,0,0,0)
+                    }
+                    isLoading=true
+                }
+                is Event.Success -> {
+                    isLoading=false
+                    if (it.r.ArtisTopTrackdata.isNullOrEmpty()) {
+                        allFetched = true
+                        binding.artTopTrackLoading.visibility = View.GONE
+                        if(list.isEmpty()) {
+                            Snackbar.make(binding.root,"Seems there are no data here.", Snackbar.LENGTH_INDEFINITE).setAction("Retry") {
+                                fetchData(artistId)
+                            }.show()
+                        }
+                        return@observe
+                    } else {
+                        val oldSize = list.size
+                        stopShimmer()
+                        binding.artTopTrackLoading.visibility = View.GONE
+                        binding.artTopTrackBlogRecycler.setPadding(0,0,0,0)
+                       // list.clear()
+                        list.addAll(it.r.ArtisTopTrackdata)
+
+                        Log.d("ArtopActivity",list.size.toString()+" "+it.r.ArtisTopTrackdata.toString())
+                        adapter.notifyItemRangeInserted(oldSize,it.r.ArtisTopTrackdata.size)
+                    }
+                }
+                is Event.Error -> {
+                    isLoading=false
+                    binding.artTopTrackLoading.visibility= View.GONE
+                    binding.artTopTrackBlogRecycler.setPadding(0,0,0,0)
+                    Snackbar.make(binding.root,it.msg, Snackbar.LENGTH_INDEFINITE).setAction("Retry") {
+                        fetchData(artistId)
+                    }.show()
+                }
+                else -> {}
+            }
+        }
+    }
+
+
+    private fun startShimmer() {
+        binding.artTopTrackData.visibility = View.GONE
+        binding.artTopTrackSkeletonLayout.visibility = View.VISIBLE
+        binding.artTopTrackSkeletonLayout.startShimmer()
+    }
+
+    private fun stopShimmer() {
+        binding.artTopTrackSkeletonLayout.stopShimmer()
+        binding.artTopTrackSkeletonLayout.visibility = View.GONE
+        binding.artTopTrackData.visibility = View.VISIBLE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewmodel.getTopTracks(genreAllData!!.id.toString())
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        viewmodel.getTopTracks(genreAllData!!.id.toString())
+        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        viewmodel.getTopTracks(genreAllData!!.id.toString())
+    }
+
+    private fun setRecycler() {
+        //       var job: Job? = null
+//        binding.loadinLayout.visibility = View.VISIBLE
+//        job?.cancel()
+//        job = MainScope().launch {
+//            delay(500L)
+//                Glide.with(this@ArtistsActivity).load(R.raw.loading).into(binding.loading)
+//
+//        }
+
+        Glide.with(requireActivity()).load(R.raw.loading).into(binding.artTopTrackLoading)
+        adapter = ArtistTopTracksAdapter(list,this)
+
+        val linearLayoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL ,false)
+        binding.artTopTrackBlogRecycler.layoutManager = linearLayoutManager
+
+        binding.artTopTrackBlogRecycler.adapter = adapter
+
+//        job = MainScope().launch {
+//            delay(500L)
+//            binding.loadinLayout.visibility = View.GONE
+//
+//        }
+        binding.artTopTrackBlogRecycler.addOnScrollListener(scrollListener)
+    }
+
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+            val isNotAtBeginning = firstVisibleItemPosition >= 0
+            val shouldPaginate =
+                isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isScrolling
+
+            if (shouldPaginate) {
+                fetchData(model?.id.toString())
+                isScrolling = false
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+    }
+
+
+
+    override fun artistClick(title: String,picture:String,link:String) {
+        //val dialog = setProgressDialog(requireActivity(), "Streaming $title..")
+       // dialog.show()
+       //val mp3Link = pos
+       // Log.i("MP3","MP3LINK $mp3Link")
+        val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.customview_layout, null)
+        val title1: TextView = view.findViewById(R.id.titleDialog)
+        //progress bar
+        val pgrbar:ProgressBar = view.findViewById(R.id.progress_bar)
+
+        //val link1: TextView = view.findViewById(R.id.linkboxTextView)
+        title1.text = title
+       // link1.text = picture
+      //  val description: TextView = view.findViewById(R.id.descriptionDialog)
+        val posterImg: ImageView = view.findViewById(R.id.image_slider_single)
+
+            Glide.with(requireActivity())
+                .load(picture).into(posterImg)
+          val imageViewPlay = view.findViewById<ShapeableImageView>(R.id.play_top_track_loading)
+          val imageViewPause = view.findViewById<ShapeableImageView>(R.id.pause_top_track_loading)
+
+
+
+         imageViewPlay.setOnClickListener {
+           //  playAudio(link)
+           //  dialog.show()
+             imageViewPlay.visibility = View.GONE
+            // imageViewPause.visibility = View.VISIBLE
+             pgrbar.visibility = View.VISIBLE
+
+
+
+             // initializing media player
+
+             Log.i("LOGLINK","$link")
+
+
+
+             val url = link // your URL here
+             mediaPlayer = MediaPlayer().apply {
+                 setAudioAttributes(
+                     AudioAttributes.Builder()
+                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                         .setUsage(AudioAttributes.USAGE_MEDIA)
+                         .build()
+                 )
+                 setDataSource(url)
+                 prepare() // might take long! (for buffering, etc)
+                 start()
+                 imageViewPause.visibility = View.VISIBLE
+                 pgrbar.visibility = View.GONE
+
+             }
+
+
+            // dialog.dismiss()
+             Toast.makeText(requireActivity(), "Audio started playing..", Toast.LENGTH_SHORT).show()
+
+
+         }
+
+        imageViewPause.setOnClickListener {
+            if (mediaPlayer!!.isPlaying) {
+
+                mediaPlayer?.release()
+                mediaPlayer = null
+
+                imageViewPause.visibility = View.GONE
+                imageViewPlay.visibility = View.VISIBLE
+                // below line is to display a message
+                // when media player is paused.
+
+                Toast.makeText(requireActivity(), "Audio has been stopped", Toast.LENGTH_LONG).show()
+            } else {
+                // this method is called when media
+                // player is not playing.
+
+                Toast.makeText(requireActivity(), "Please close and play again", Toast.LENGTH_LONG).show()
+            }
+           // pauseMusic()
+        }
+
+        val  button = view.findViewById<Button>(R.id.dialogDismiss_button)
+        builder.setView(view)
+        button.setOnClickListener {
+             if (mediaPlayer == null){
+
+                 builder.dismiss()
+             }else {
+                 mediaPlayer?.release()
+                 mediaPlayer = null
+             }
+
+            builder.dismiss()
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+    }
+
+//    override fun fullTrack(pos: String) {
+//        val data = pos
+//        val defaultBrowser =
+//            Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)
+//        defaultBrowser.data = Uri.parse(data)
+//        startActivity(defaultBrowser)
+//    }
+
+
+
+//    override fun openTrackLink(link: String) {
+//        val data = link
+//        val defaultBrowser =
+//            Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)
+//        defaultBrowser.data = Uri.parse(data)
+//        startActivity(defaultBrowser)
+//
+//    }
+
+
+
+
+}

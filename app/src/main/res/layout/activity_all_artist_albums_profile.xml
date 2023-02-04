@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".profile.fragmentsAllArtist.AllArtistAlbumsProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/CustomToolbarStyle"
+        app:titleTextColor="@color/black" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/all_artist_profile_name"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/comfortaa"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/all_artist_profile_image"
+            android:layout_gravity="end"
+            android:layout_marginEnd="15dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorPrimary"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/all_artist_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/all_artist_profile_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/All_artist_bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:menu="@menu/all_profile_bottom_navigation_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fitsSystemWindows="true"
+
+        app:itemRippleColor="@color/colorPrimary"
+        style=""
+        app:itemIconSize="40dp"
+        android:background="@color/white_ex"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"/>
+</LinearLayout>

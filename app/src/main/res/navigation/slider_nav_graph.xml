@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slider_nav_graph"
+    app:startDestination="@id/sliderToptracksFragment">
+
+    <fragment
+        android:id="@+id/sliderToptracksFragment"
+        android:name="com.messieyawo.artistshub.slider.fragments.SliderToptracksFragment"
+        android:label=""
+        tools:layout="@layout/fragment_slider_toptracks" >
+        <action
+            android:id="@+id/action_sliderToptracksFragment_to_sliderAlbumsFragment"
+            app:destination="@id/sliderAlbumsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sliderAlbumsFragment"
+        android:name="com.messieyawo.artistshub.slider.fragments.SliderAlbumsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_slider_albums" >
+        <action
+            android:id="@+id/action_sliderAlbumsFragment_to_sliderPlayListFragment"
+            app:destination="@id/sliderPlayListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sliderPlayListFragment"
+        android:name="com.messieyawo.artistshub.slider.fragments.SliderPlayListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_slider_play_list" />
+</navigation>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_marginBottom="30dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="8dp"
+    android:id="@+id/root_artist_album"
+    app:cardElevation="4dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/parent_track"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:background="@color/white_ex"
+        android:padding="6dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/root_artist_image_container"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="6dp">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/root_artist_image_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey"
+                android:scaleType="centerCrop"
+                android:src="@color/light_grey" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/root_container_album_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/dm_serif_display_regular"
+                android:paddingTop="4dp"
+                android:layout_margin="8dp"
+                android:singleLine="true"
+                android:text="Album title"
+                android:textColor="@color/text_black"
+                android:textSize="20sp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/root_container_album_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="Album link"
+                android:layout_margin="3dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/colorPrimary"
+                android:paddingEnd="4dp"
+                android:clickable="false"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_gravity="end"
+                android:src="@drawable/next"
+                android:layout_height="20dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/root_release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:autoLink="all"
+                android:layout_margin="3dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="4dp"
+                android:textColor="@color/purple_500"
+                android:fontFamily="@font/open_sans"
+                android:gravity="center_vertical"
+                android:text="Track Link"
+                android:textSize="16sp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/root_ablbum_full_track"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:autoLink="all"
+                android:paddingStart="10dp"
+                android:paddingEnd="4dp"
+                android:textColor="@color/purple_500"
+                android:fontFamily="@font/open_sans"
+                android:gravity="center_vertical"
+                android:text="Track list"
+                android:textSize="16sp"/>
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/btn_play_album_tracks"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:text="watch Playlist"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>

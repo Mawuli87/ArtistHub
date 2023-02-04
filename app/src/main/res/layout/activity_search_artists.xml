@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="30dp"
+    tools:context=".activities.SearchArtistsActivity">
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:queryHint="enter movie name"
+        android:id="@+id/search_view"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shaper_search"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/skeleton_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:id="@+id/saerch_data"
+        android:layout_height="0dp"
+
+        app:constraint_referenced_ids="search_blog_recycler,search_loading"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_blog_recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_below="@+id/search_view"
+        android:layout_height="match_parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/search_loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/search_blog_recycler"
+
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

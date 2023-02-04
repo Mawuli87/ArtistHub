@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_purple_700"
+    tools:context=".activities.MainActivity">
+
+    <include
+        android:id="@+id/bar_main"
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:paddingTop="1dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="60dp">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="Daily update "
+                android:textColor="@color/light_grey"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="of Top Tracks"
+                android:textColor="@color/light_grey"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialTextView3" />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:id="@+id/trending_artist"
+                   app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+                   android:layout_height="500dp"
+                   android:orientation="vertical">
+
+                 <FrameLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+
+                     <com.google.android.material.imageview.ShapeableImageView
+                         android:id="@+id/slider_main_loading"
+                         android:layout_width="100dp"
+                         android:layout_height="100dp"
+                         android:layout_gravity="center_horizontal|center"
+                         android:scaleType="centerCrop"
+                         android:visibility="gone"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent" />
+
+
+                     <androidx.viewpager2.widget.ViewPager2
+                         android:id="@+id/locationsViewPager"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_marginTop="10dp"
+                         android:paddingStart="10dp"
+                         android:paddingEnd="70dp"
+                         app:layout_constraintBottom_toTopOf="@id/materialTextView2"
+                         app:layout_constraintTop_toBottomOf="@id/materialTextView" />
+                 </FrameLayout>
+
+               </LinearLayout>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="@string/categories"
+                android:textColor="@color/light_grey"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trending_artist" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialTextView2"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:id="@+id/cv_search"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="@color/purple_500"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/search_artist_main"
+                            android:orientation="vertical"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="20dp">
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@drawable/search" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/light_grey"
+                                android:padding="10dp"
+                                android:text="Search All \n type of Artists"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/purple_500"
+                        android:id="@+id/cv_albums"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/danceClass"
+                            android:orientation="vertical"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="20dp">
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@drawable/album" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:padding="10dp"
+                                android:text="Top Albums\n Daily update"
+                                android:textColor="@color/light_grey"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+
+
+
+              <!--Recyclerview-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/comfortaa"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/light_grey"
+                    android:padding="5dp"
+                    android:text="Browse all types of musics"
+                    android:layout_height="wrap_content"/>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:orientation="vertical"
+                 android:layout_height="wrap_content">
+
+                 <androidx.core.widget.NestedScrollView
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+
+                     <com.facebook.shimmer.ShimmerFrameLayout
+                         android:id="@+id/recycler_main_skeleton_layout"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:orientation="vertical">
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+
+                             <include layout="@layout/item_shimmer_layout" />
+                         </LinearLayout>
+                     </com.facebook.shimmer.ShimmerFrameLayout>
+                 </androidx.core.widget.NestedScrollView>
+
+                 <androidx.constraintlayout.widget.Group
+                     android:layout_width="0dp"
+                     android:id="@+id/recycler_main_data"
+                     android:layout_height="0dp"
+
+                     app:constraint_referenced_ids="recycler_genre,recycler_main_loading"/>
+
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/recycler_genre"
+                     android:layout_width="match_parent"
+                     app:spanCount="2"
+                     android:layout_marginTop="2dp"
+                     android:layout_height="match_parent" />
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:orientation="horizontal"
+                     android:id="@+id/gospel_music"
+                     android:layout_height="wrap_content">
+                     <androidx.cardview.widget.CardView
+                         android:layout_width="0dp"
+                         android:layout_height="200dp"
+                         android:layout_weight="1"
+                         app:cardBackgroundColor="@color/purple_500"
+                         android:id="@+id/cv_videos_gospel"
+                         app:cardCornerRadius="5dp"
+                         app:cardElevation="5dp">
+
+                         <FrameLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:gravity="center"
+                             android:id="@+id/video_music_layout_gospel"
+                             android:orientation="vertical"
+                             android:paddingTop="20dp"
+                             android:paddingBottom="20dp">
+
+                             <ImageView
+                                 android:layout_width="match_parent"
+                                 android:layout_margin="10dp"
+                                 android:layout_height="match_parent"
+                                 android:scaleType="centerCrop"
+                                 android:src="@drawable/worship" />
+
+                             <TextView
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="10dp"
+                                 android:padding="16dp"
+                                 android:fontFamily="@font/comfortaa"
+                                 android:layout_gravity="center_horizontal|bottom"
+                                 android:text="Gospel Musics"
+                                 android:textSize="20sp"
+                                 android:textColor="@color/white"
+                                 android:textAlignment="center" />
+
+                         </FrameLayout>
+
+
+                     </androidx.cardview.widget.CardView>
+
+
+                 </LinearLayout>
+
+
+                 <com.google.android.material.imageview.ShapeableImageView
+                     android:id="@+id/recycler_main_loading"
+                     android:layout_width="100dp"
+                     android:layout_height="100dp"
+                     android:scaleType="centerCrop"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toStartOf="parent" />
+
+             </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

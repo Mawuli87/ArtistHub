@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all_artist_profile_nav_graph"
+    app:startDestination="@id/allArtistTopTracksFragment">
+
+    <activity
+        android:id="@+id/allArtistProfileActivity"
+        android:name="com.messieyawo.artistshub.activities.AllArtistProfileActivity"
+        android:label="activity_all_artist_profile"
+        tools:layout="@layout/activity_all_artist_profile" />
+    <fragment
+        android:id="@+id/allArtistTopTracksFragment"
+        android:name="com.messieyawo.artistshub.profile.fragmentsAllArtist.AllArtistTopTracksFragment"
+        android:label="Tracks"
+        tools:layout="@layout/fragment_all_artist_top_tracks" >
+        <action
+            android:id="@+id/action_allArtistTopTracksFragment_to_allArtistAlbumPlayListFragment"
+            app:destination="@id/allArtistAlbumPlayListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allArtistAlbumPlayListFragment"
+        android:name="com.messieyawo.artistshub.profile.fragmentsAllArtist.AllArtistTopTracksFragment"
+        android:label="Album Playlist"
+        tools:layout="@layout/fragment_all_artist_album_play_list" />
+</navigation>

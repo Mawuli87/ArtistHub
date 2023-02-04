@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".profile.fragmentsAllArtist.AllArtistAlbumPlayListFragment">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/all_artist_top_track_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        app:tabRippleColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/white"
+        app:tabIconTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/all_artist_top_track_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:id="@+id/all_artist_top_track_data"
+        android:layout_height="0dp"
+
+        app:constraint_referenced_ids="all_artist_top_track_recycler,all_artist_top_track_loading"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/all_artist_top_track_recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_height="match_parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/all_artist_top_track_loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/all_artist_top_track_recycler"
+
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

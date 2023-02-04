@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="30dp"
+tools:context=".profile.fragments.ArtistAlbumFragment">
+
+<include
+    android:id="@+id/bar_album"
+    layout="@layout/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    app:layout_constraintTop_toTopOf="parent" />
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/single_skeleton_layout_albums"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+
+            <include layout="@layout/item_shimmer_layout" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</androidx.core.widget.NestedScrollView>
+
+<androidx.constraintlayout.widget.Group
+    android:layout_width="0dp"
+    android:id="@+id/single_data"
+    android:layout_height="0dp"
+
+    app:constraint_referenced_ids="single_album_recycler,single_loading_albums"/>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/single_album_recycler"
+    android:layout_width="match_parent"
+    android:layout_marginTop="?actionBarSize"
+    android:layout_height="match_parent" />
+
+
+<com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/single_loading_albums"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_below="@id/single_album_recycler"
+
+    android:layout_centerInParent="true"
+    android:scaleType="centerCrop"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

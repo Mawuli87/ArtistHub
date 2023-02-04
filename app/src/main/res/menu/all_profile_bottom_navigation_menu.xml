@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/allArtistTopTracksFragment"
+        android:title="Album Tracks"
+        android:icon="@drawable/ic_tracks" />
+
+
+
+<!--    <item android:id="@+id/allArtistAlbumPlayListFragment"-->
+<!--        android:title="Playlists"-->
+<!--        android:icon="@drawable/ic_playlist" />-->
+
+    <!--    <item android:id="@+id/artistFansFragment"-->
+    <!--        android:title="Fans"-->
+    <!--        android:icon="@drawable/ic_fans" />-->
+
+
+
+<!--    <item android:id="@+id/allUserProfileFragment"-->
+<!--        android:title="Profile"-->
+<!--        android:icon="@drawable/ic_profile" />-->
+
+
+    <item android:id="@+id/allSettingsActivity"
+        android:title="Settings"
+        android:icon="@drawable/ic_sttings" />
+
+
+</menu>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="30dp"
+    tools:context=".activities.AlbumActivity">
+
+    <include
+        android:id="@+id/bar_album"
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/skeleton_layout_albums"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+
+                <include layout="@layout/item_shimmer_layout" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:id="@+id/data"
+        android:layout_height="0dp"
+
+        app:constraint_referenced_ids="album_recycler,loading_albums"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/album_recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="120dp"
+        android:layout_height="match_parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/loading_albums"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/album_recycler"
+
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

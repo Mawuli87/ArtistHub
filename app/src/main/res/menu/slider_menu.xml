@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/sliderToptracksFragment"
+        android:title="Top Tracks"
+        android:icon="@drawable/ic_tracks" />
+
+    <item android:id="@+id/sliderAlbumsFragment"
+        android:title="Albums"
+        android:icon="@drawable/ic_albums" />
+
+<!--    <item android:id="@+id/sliderPlayListFragment"-->
+<!--        android:title="Settings"-->
+<!--        android:icon="@drawable/ic_sttings" />-->
+
+
+</menu>

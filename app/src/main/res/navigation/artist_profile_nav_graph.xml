@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/artist_profile_nav_graph"
+    app:startDestination="@id/artistTopFragment">
+
+    <fragment
+        android:id="@+id/artistTopFragment"
+        android:name="com.messieyawo.artistshub.profile.fragments.ArtistTopFragment"
+        android:label=""
+        tools:layout="@layout/fragment_artist_top" >
+        <action
+            android:id="@+id/action_artistTopFragment_to_artistAlbumFragment"
+            app:destination="@id/artistAlbumFragment" />
+        <action
+            android:id="@+id/action_artistTopFragment_to_artistPlayListFragment"
+            app:destination="@id/artistPlayListFragment" />
+        <action
+            android:id="@+id/action_artistTopFragment_to_artistFansFragment"
+            app:destination="@id/artistFansFragment" />
+        <action
+            android:id="@+id/action_artistTopFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistAlbumFragment"
+        android:name="com.messieyawo.artistshub.profile.fragments.ArtistAlbumFragment"
+        android:label=""
+        tools:layout="@layout/fragment_artist_album" >
+        <action
+            android:id="@+id/action_artistAlbumFragment_to_artistPlayListFragment"
+            app:destination="@id/artistPlayListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistPlayListFragment"
+        android:name="com.messieyawo.artistshub.profile.fragments.ArtistPlayListFragment"
+        tools:layout="@layout/fragment_artist_play_list" >
+        <argument
+            android:name="album"
+            app:argType="com.messieyawo.artistshub.models.artistAlbums.artistAlbumData" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/artistFansFragment"
+        android:name="com.messieyawo.artistshub.profile.fragments.ArtistFansFragment"
+        android:label=""
+        tools:layout="@layout/fragment_artist_fans" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.messieyawo.artistshub.profile.fragments.UserProfileFragment"
+        android:label=""
+        tools:layout="@layout/fragment_user_profile" />
+</navigation>
